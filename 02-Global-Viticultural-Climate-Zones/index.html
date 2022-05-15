@@ -272,11 +272,11 @@
         let nextDataYear = 0;
 
         function getDataFile() {
-            return `json/viticultural_zone_mean_temp_${year}.geojson`;
+            return `data/viticultural_zone_mean_temp_${year}.geojson`;
         }
 
         async function prefetchData(prefetchYear) {
-            let response = await fetch(`json/viticultural_zone_mean_temp_${prefetchYear}.geojson`);
+            let response = await fetch(`data/viticultural_zone_mean_temp_${prefetchYear}.geojson`);
             let data = await response.json();
             nextDataPayload = data;
             nextDataYear = prefetchYear;
