@@ -71,6 +71,13 @@
             display: inline-block;
             text-align: center;
         }
+
+        .mapboxgl-popup {
+            max-width: 400px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: white;
+            opacity: 0.8;
+        }
     </style>
 </head>
 
@@ -79,7 +86,8 @@
     <div id="console">
         <h1>Viticultural climate zones</h1>
         <div class="session">
-            <h2>Mean temperature</h2><h3>(North: Apr-Oct / South: Oct-Apr)</h3>
+            <h2>Mean temperature</h2>
+            <h3>(North: Apr-Oct / South: Oct-Apr)</h3>
             <div class="row colors"></div>
             <div class="row labels">
                 <div class="label">10</div>
@@ -108,7 +116,7 @@
             <a href="https://psl.noaa.gov/data/gridded/data.UDel_AirT_Precip.html">University of Delaware Air
                 Temperature & Precipitation (Dec 2017)</a>
         </p>
-<!-- DEBUG        
+        <!-- DEBUG        
         <div class="session">
                 <h2>Zoom <label id="zoom">1</label></h2>
         </div> 
@@ -116,13 +124,17 @@
     </div>
     <script>
 
+        // Our dataset brings info from 1900 to 2017 now
         const yearMin = 1900;
         const yearMax = 2017;
 
         let year = 2000;
         let animation = 'animation_on';
 
+        // Andras Gelanyi's token
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbGFueWkiLCJhIjoiY2wzNjJlZWxmMDhmZDNlcW5hdGRsZmE2bSJ9.aEhGm87e4fUUnoUpCcF2Ww';
+
+        // Our map
         const map = new mapboxgl.Map({
             container: 'map',
             //style: 'mapbox://styles/mapbox/streets-v11',
@@ -135,6 +147,10 @@
 
 
         map.on('load', () => {
+
+            // Not used for now
+            // let filterYear = ['==', ['number', ['get', 'year']], year];
+            // let filterInRange = ['!=', ['string', ['get', 'is_in_temp_range']], 'placeholder'];
 
             // Add lines on 30, 50 and -30, -50 latitudes
             map.addSource('ranges', {
@@ -180,10 +196,7 @@
                 }
             });
 
-            // Not used for now
-            // let filterYear = ['==', ['number', ['get', 'year']], year];
-            // let filterInRange = ['!=', ['string', ['get', 'is_in_temp_range']], 'placeholder'];
-
+            // Our main layer for the temperature indicators
             map.addSource('temperature', { type: 'geojson', data: getDataFile() });
             map.addLayer({
                 id: 'temperature',
@@ -215,8 +228,44 @@
                         20,
                         '#AA5E79'
                     ],
-                    'circle-opacity': 0.8
+                    'circle-opacity': 0.7
                 }
+            });
+
+            // Creating a popup. Simple one, with no navigation and control buttons.
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+
+            // Adding the popup and filling it with temperature details when hovering over a valid marker
+            map.on('mouseenter', 'temperature', (e) => {
+                // Changing the cursor style
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Setting the coordinates and the content of the popup
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const description = `<strong>Mean temperature in ${e.features[0].properties.year}</strong>
+                <p>Temperature: <em>${e.features[0].properties.air_temp} °C</em><br/>
+                   Location: <em>${e.features[0].geometry.coordinates[1].toFixed(2)}°, ${e.features[0].geometry.coordinates[0].toFixed(2)}°</em>
+                </p>`
+
+                // As per : https://docs.mapbox.com/mapbox-gl-js/example/popup-on-hover/
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                // Populate the popup and set its coordinates
+                popup.setLngLat(coordinates).setHTML(description).addTo(map);
+            });
+
+            // When leaving the marker, let's remove the popup
+            map.on('mouseleave', 'temperature', () => {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
             });
 
             // Add zoom and rotation controls to the map.
@@ -232,14 +281,14 @@
             // Setting a timer and starting the animation
             timer = setInterval(updateMap, 300);
 
-            // update hour filter when the slider is dragged
+            // update the dataset to the selected year when the slider is moved
             document.getElementById('slider').addEventListener('input', (event) => {
                 year = parseInt(event.target.value);
 
                 console.log("Slider updated to year: " + year);
-                //console.log("Fetching: " + getDataFile());
 
                 // update the map
+                //console.log("Fetching: " + getDataFile());
                 map.getSource('temperature').setData(getDataFile());
 
                 // update text in the UI
@@ -249,6 +298,7 @@
 
             });
 
+            // A listener for the toggles: switching the animation on or off
             document
                 .getElementById('animation')
                 .addEventListener('change', (event) => {
@@ -268,13 +318,16 @@
 
         });
 
+        // Temporary storage of the data in memory and the prefetched year number
         let nextDataPayload = "";
         let nextDataYear = 0;
 
+        // Getting the data file string
         function getDataFile() {
             return `data/viticultural_zone_mean_temp_${year}.geojson`;
         }
 
+        // A function to prefetch data in an async manner (should speed things up a bit)
         async function prefetchData(prefetchYear) {
             let response = await fetch(`data/viticultural_zone_mean_temp_${prefetchYear}.geojson`);
             let data = await response.json();
@@ -283,17 +336,21 @@
             console.log("[Prefetch] Reveived dataset for year " + nextDataYear);
         }
 
+        // This function is used to update the map automatically or on a slider move
         function updateMap() {
             if (year < yearMax + 1) {
-                //map.getSource('temperature').setData(getDataFile());
                 // update slider text
                 document.getElementById('year').innerText = year;
                 document.getElementById('slider').value = year;
 
+                // In case we have an updated prefetched year that matches the current one
+                // we could assume that there is a data object already on memory and we do not have
+                // to pull it from the network
                 if (nextDataYear === year) {
                     console.log("[Prefetch] Using pre-fetched dataset for " + year);
                     map.getSource('temperature').setData(nextDataPayload);
                 } else {
+                    // Otherwise, let's simply just load the data from the remote location
                     console.log("Fetching and setting the dataset for year " + year);
                     map.getSource('temperature').setData(getDataFile());
                 }
@@ -306,8 +363,9 @@
 
                 // jumping to the next year
                 year++;
-            
+
             } else {
+                // Restarting at 1900
                 year = yearMin;
             }
         }
