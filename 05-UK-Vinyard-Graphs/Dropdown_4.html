@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>ECharts</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+  <script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+  
+  <script src="echarts.js"></script>
+
+  <style>
+    #pagecontent {
+      width: 1000px;
+      margin: auto;
+    }
+    .chartBox {
+      width: 600px;
+      padding: 20px;
+    }
+
+    .myContent {
+      min-width: 860px;
+      min-height: 600px;
+      padding: 20px;
+    }
+
+    .chartContent {
+      min-width: 800px;
+      min-height: 600px;
+      padding: 20px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <div id="pagecontent">
+  <div class="chartBox">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <div class="selectBox">
+    <select id="ChartMenu">
+      <option value="echart1">Grape Variety</option>
+      <option value="flourish1">Export</option>
+      <option value="flourish2">Red vs. White</option>
+      <option value="echart2">HA & Wineries</option>
+    </select>
+  </div>
+
+  <div id="myContent" class="myContent">
+    <object class="chartContent" type="text/html" data="echart_grapes.html" ></object>
+  </div>
+</div>
+
+  <!--<h1 id="title">London Real Time Air Quality Data</h1>
+        <p>Data provided by <a href="https://aqicn.org/data-platform/token/#/">AQICN Open Data Platform</a>.</p>-->
+
+
+  <script>
+
+
+    document.getElementById('ChartMenu').addEventListener('change', function () {
+      const selectedChart = event.target.value;
+      console.log("Selected chart: " + selectedChart);
+
+      switch (selectedChart) {
+        case "echart1":
+            console.log("Let's work onecharttable.");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="echart_grapes.html" ></object>';
+            break;
+
+        case "flourish1":
+            console.log("a");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="flourish_export.html" ></object>';
+            break;
+
+        case "flourish2":
+            console.log("b");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="flourish_red_white.html" ></object>';
+            break;
+
+        case "echart2":
+            console.log("Let's work echarttable2.");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="echart_Wineries_HA.html" ></object>';
+            break;
+        default:
+      }
+    });
+
+
+  </script>
+
+</body>
+
+</html>
