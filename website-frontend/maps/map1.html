@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>London Economic Activity</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- loading font -->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+
+    <style>
+        body { margin:0; 
+          padding:0; 
+          font-family: 'Titillium Web', sans-serif;
+        }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+  p{
+    font-size:14px;
+  }
+h1 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  h2 {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #2DC4B2;
+  }
+
+  #console {
+    position: absolute;
+    margin: 10px;
+    width: 240px;
+    background-color: white;
+    padding: 10px 20px;
+  }
+
+  .session {
+    margin-bottom: 20px;
+  }
+
+  .row {
+    height: 12px;
+    width: 100%;
+  }
+
+  .colors {
+    background: linear-gradient(to right, #40E0D0, #FF8C00,#FF0080);
+    margin-bottom: 5px;
+  }
+
+  .label {
+    width: 13%;
+    display: inline-block;
+    text-align: center;
+  }
+body {
+    overflow: hidden;
+}
+
+body * {
+   -webkit-touch-callout: none;
+     -webkit-user-select: none;
+        -moz-user-select: none;
+         -ms-user-select: none;
+             user-select: none;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+
+
+    
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+
+<div id='before' class='map'></div>
+<div id='after' class='map'></div>
+<div id='console'>
+    <h4>Vinyards of the UK</h4>
+    <h1>Vineyards</h1>
+    <p>Click to discover infomation about the 860 vineyards of the UK.</p>
+    <p> HERE</p>
+    <div class='session'>
+      <h2>Hectres Planted</h2>
+      <div class='row colors'>
+      </div>
+      <div class='row labels'>
+        <div class='label'>0</div>
+        <div class='label'>20</div>
+        <div class='label'>40</div>
+        <div class='label'>60</div>
+        <div class='label'>90</div>
+        <div class='label'>130</div>
+        <div class='label'>175</div>
+          <div class='label'> </div>
+      </div>
+    </div>
+    
+    <div class='session'>
+      <h2>County</h2>
+      <div class='row' id='filters'>
+        <input id='all' type='radio' name='toggle' value='all' checked='checked'>
+        <label for='all'>All</label>
+        <input id='Aberdeenshire' type='radio' name='toggle' value='Aberdeenshire'>
+        <label for='Aberdeenshire'>Aberdeenshire</label>
+        <input id='Banes' type='radio' name='toggle' value='Banes'>
+        <label for='Banes'>Banes</label>
+      </div>
+    </div>
+  </div>
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoicnVieWpvaG5zb24iLCJhIjoiY2t5bGUxYjYyMDVlbzJ2bzRkenUwenR5NiJ9.DJqkRqSMng99_9CRtbPwgg';
+var beforeMap = new mapboxgl.Map({
+    container: 'before',
+    style: 'mapbox://styles/rubyjohnson/cl304xeay000j14qh0qzrktc4',
+    center: [-5, 54],
+    zoom: 5
+});
+
+var afterMap = new mapboxgl.Map({
+    container: 'after',
+    style: 'mapbox://styles/rubyjohnson/cl309uyjn002014mmzx77k40x',
+    center: [-5, 54],
+    zoom: 5
+});
+
+var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
+    
+beforeMap.on('load', function() {
+
+    var filterCounty =  ['match', ['get', 'Vineyard County'], ['All'], true, false];
+
+    beforeMap.addSource(
+        'b2', {
+        type: 'vector',
+        url: 'mapbox://zsm014.0e8535fe'
+    });
+    beforeMap.addLayer({
+      id: 'b2',
+      type: 'circle',
+      'source': 'b2',
+      'source-layer': 'past_ea-93lzzn',
+        'layout': {
+            'visibility': 'visible'
+        },
+      paint: {
+        'circle-radius': [
+          'interpolate',
+          ['linear'],
+          ['number', ['get', 'Number']],
+          10000, 10,
+          200000, 50
+        ],
+        'circle-color': [
+          'interpolate',
+          ['linear'],
+          ['number', ['get', 'Per']],
+          30, '#40E0D0',
+          40, '#70CB9C',
+          50, '#A0B668',
+          60, '#CFA134',
+          70, '#FF8C00',
+          80, '#FF5D2B',
+          90, '#FF2F55',
+          100, '#FF0080'
+        ],
+        'circle-opacity': 0.8
+      },
+      'filter': ['all', filterYear, filterGender]
+    });
+      
+     
+
+
+    // update hour filter when the slider is dragged
+    document.getElementById('slider1').addEventListener('input', function(e) {
+      var yearid = parseInt(e.target.value);
+      // update the ma
+        filterYear = ['==', ['number', ['get', 'yearid']], yearid];
+      beforeMap.setFilter('b2', ['all', filterYear,filterGender]);
+        var yearname = yearid >= 5 ? 1971+10*(yearid-4) : 1871+10*yearid ;
+       
+    
+        // update text in the UI
+        document.getElementById('active-year1').innerText = yearname;
+    });
+
+    document.getElementById('filters').addEventListener('change', function(e) {
+      var county = e.target.value;
+      // update the map filter
+      if (filterCounty === 'all') {
+        filterCounty = ['match', ['get', 'Vineyard County'], ['All'], true, false];
+      } else if (filterCounty === 'male') {
+        filterCounty = ['match', ['get', 'Vineyard County'], ['Aberdeenshire'], true, false];
+      } else if (filterCounty === 'Banes') {
+        filterCounty = ['match', ['get', 'Vineyard County'], ['Banes'], true, false];
+      } else {
+        console.log('error');
+      };
+      beforeMap.setFilter('b2', ['all', filterCounty]);
+    });
+
+  });
+    
+afterMap.on('load', function() {
+
+    var filterYear = ['==', ['number',['get', 'yearid']], 5];
+    var filterGender =  ['match', ['get', 'Gender'], ['All'], true, false];
+
+    afterMap.addSource(
+        'a2', {
+        type: 'vector',
+        url: 'mapbox://zsm014.0e8535fe'
+    });
+    afterMap.addLayer({
+      id: 'a2',
+      type: 'circle',
+      'source': 'a2',
+      'source-layer': 'past_ea-93lzzn',
+        'layout': {
+            'visibility': 'visible'
+        },
+      paint: {
+        'circle-radius': [
+          'interpolate',
+          ['linear'],
+          ['number', ['get', 'Number']],
+          10000, 10,
+          200000, 50
+        ],
+        'circle-color': [
+          'interpolate',
+          ['linear'],
+          ['number', ['get', 'Per']],
+          30, '#40E0D0',
+          40, '#70CB9C',
+          50, '#A0B668',
+          60, '#CFA134',
+          70, '#FF8C00',
+          80, '#FF5D2B',
+          90, '#FF2F55',
+          100, '#FF0080'
+        ],
+        'circle-opacity': 0.8
+      },
+      'filter': ['all', filterYear, filterGender]
+    });
+      
+     
+
+
+    // update hour filter when the slider is dragged
+    document.getElementById('slider2').addEventListener('input', function(e) {
+      var yearid = parseInt(e.target.value);
+      // update the ma
+        filterYear = ['==', ['number', ['get', 'yearid']], yearid];
+      afterMap.setFilter('a2', ['all', filterYear,filterGender]);
+        var yearname = yearid >= 5 ? 1971+10*(yearid-4) : 1871+10*yearid ;
+       
+    
+        // update text in the UI
+        document.getElementById('active-year2').innerText = yearname;
+    });
+
+    document.getElementById('filters').addEventListener('change', function(e) {
+      var gender = e.target.value;
+      // update the map filter
+      if (gender === 'all') {
+        filterGender = ['match', ['get', 'Gender'], ['All'], true, false];
+      } else if (gender === 'male') {
+        filterGender = ['match', ['get', 'Gender'], ['Male'], true, false];
+      } else if (gender === 'female') {
+        filterGender = ['match', ['get', 'Gender'], ['Female'], true, false];
+      } else {
+        console.log('error');
+      };
+      afterMap.setFilter('a2', ['all', filterYear,filterGender]);
+    });
+
+  });
+
+var map = new mapboxgl.Compare(beforeMap, afterMap, {
+    // Set this to enable comparing two maps by mouse movement:
+    // mousemove: true
+});
+
+//beforeMap.scrollZoom.disable();
+//afterMap.scrollZoom.disable();
+
+    
+beforeMap.on('click', function(e) {
+  var features = beforeMap.queryRenderedFeatures(e.point, {
+    layers: ['b2']
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.Name + '</h3><p>Year: ' + feature.properties.Year + '</p><p>Gender: ' + feature.properties.Gender + '</p><p>Population: ' + feature.properties.Number + '</p><p>Economic Activity rate: ' + feature.properties.Per + '%</p>')
+    .addTo(beforeMap);
+});
+    
+beforeMap.on('mouseenter', 'b2', function () {
+    beforeMap.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+beforeMap.on('mouseleave', 'b2', function () {
+    beforeMap.getCanvas().style.cursor = '';
+});
+    
+afterMap.on('click', function(e) {
+  var features = afterMap.queryRenderedFeatures(e.point, {
+    layers: ['a2']
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.Name + '</h3><p>Year: ' + feature.properties.Year + '</p><p>Gender: ' + feature.properties.Gender + '</p><p>Population: ' + feature.properties.Number + '</p><p>Economic activity rate: ' + feature.properties.Per + '%</p>')
+    .addTo(afterMap);
+});
+    
+afterMap.on('mouseenter', 'a2', function () {
+    afterMap.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+afterMap.on('mouseleave', 'a2', function () {
+    afterMap.getCanvas().style.cursor = '';
+});
+</script>
+
+</body>
+</html>
