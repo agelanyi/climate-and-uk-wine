@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Viticultural Climate Zones</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        h2 {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 10px;
+            line-height: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2dc4b2;
+        }
+
+        #console {
+            position: absolute;
+            width: 15%;
+            margin: 10px;
+            padding: 10px 10px;
+            background-color: white;
+            opacity: 0.8;
+        }
+
+        .session {
+            margin-bottom: 20px;
+        }
+
+        .story {
+            scrollbar-width: auto;
+            background-color: #F5F5F5;
+            border: 1px solid #DDDDDD;
+            border-radius: 4px 0 4px 0;
+            max-height: 260px;
+            margin-bottom: 20px;
+            overflow: scroll;
+            overflow-x: hidden;
+            padding: 5px 5px 5px;
+        }
+
+        .row {
+            height: 12px;
+            width: 100%;
+        }
+
+        .slider {
+            height: 12px;
+            width: 100%;
+            width: 100%;
+            outline: none;
+            opacity: 0.8;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .colors {
+            background: linear-gradient(to right, #2dc4b2, #3bb3c3, #669ec4, #8b88b6, #a2719b, #aa5e79);
+            margin-bottom: 5px;
+        }
+
+        .label {
+            width: 15%;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .mapboxgl-popup {
+            max-width: 400px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: white;
+            opacity: 0.8;
+        }
+
+        .button {
+            text-align: center;
+            font: 10px;
+            background: #669EC4;
+            border-radius: 3px;
+            padding: 3px;
+            width: 100px;
+            min-height: 35px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="console">
+        <div class="session">
+            <h2>Mean temperature</h2>
+            <h3>(North: Apr-Oct / South: Oct-Apr)</h3>
+            <div class="row colors"></div>
+            <div class="row labels">
+                <div class="label">12</div>
+                <div class="label">14</div>
+                <div class="label">16</div>
+                <div class="label">18</div>
+                <div class="label">20</div>
+                <div class="label">22(°C)</div>
+            </div>
+        </div>
+        <div class="session">
+            <h2>Year <label id="year">2000</label></h2>
+            <input id="slider" class="slider" type="range" min="1900" max="2017" step="1" value="2000" />
+        </div>
+        <div class="session">
+            <h2>Animation</h2>
+            <!-- <div class="row" id="animation">
+                <input id="animation_on" type="radio" name="toggle" value="animation_on" checked="checked" />
+                <label for="animation_on">On</label>
+                <input id="animation_off" type="radio" name="toggle" value="animation_off" />
+                <label for="animation_off">Off</label>
+            </div> --><div class="session">
+            <button id="animationButton" class="button" value="animation_on">&#x23F8;&#xFE0E;Pause</button>
+            <button id="flyButton" class="button">&#x2139;&#xFE0E; Europe</button>
+        </div>
+    </div>
+
+
+
+        <p>
+            Data derived from:
+            <a href="https://psl.noaa.gov/data/gridded/data.UDel_AirT_Precip.html">University of Delaware Air
+                Temperature & Precipitation (Dec 2017)</a>
+        </p>
+        <!-- DEBUG        
+        <div class="session">
+                <h2>Zoom <label id="zoom">1</label></h2>
+        </div> 
+-->
+    </div>
+    <script>
+
+        // Timer milliseconds between frames
+        const frameLength = 350;
+
+        // Our dataset brings info from 1900 to 2017 now
+        const yearMin = 1900;
+        const yearMax = 2017;
+
+        let year = 2000;
+        let animation = 'animation_on';
+
+        // Andras Gelanyi's token
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbGFueWkiLCJhIjoiY2wzNjJlZWxmMDhmZDNlcW5hdGRsZmE2bSJ9.aEhGm87e4fUUnoUpCcF2Ww';
+
+        // Our map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            //style: 'mapbox://styles/mapbox/streets-v11',
+            //style: 'mapbox://styles/mapbox/dark-v10',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [-20, 15],
+            zoom: 1.9,
+            projection: 'naturalEarth' // starting projection
+        });
+
+
+        map.on('load', () => {
+
+            // Not used for now
+            // let filterYear = ['==', ['number', ['get', 'year']], year];
+            // let filterInRange = ['!=', ['string', ['get', 'is_in_temp_range']], 'placeholder'];
+
+            // Add lines on 30, 50 and -30, -50 latitudes
+            map.addSource('ranges', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'MultiLineString',
+                        'coordinates': [
+                            [
+                                [-180.0, 30.0],
+                                [180, 30.0]
+                            ],
+                            [
+                                [-180.0, 50.0],
+                                [180, 50.0]
+                            ],
+                            [
+                                [-180.0, -30.0],
+                                [180, -30.0]
+                            ],
+                            [
+                                [-180.0, -50.0],
+                                [180, -50.0]
+                            ]
+                        ]
+                    }
+                }
+            });
+            map.addLayer({
+                'id': 'ranges',
+                'type': 'line',
+                'source': 'ranges',
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#888',
+                    'line-width': 2,
+                    'line-opacity': 0.5
+                }
+            });
+
+            // Our main layer for the temperature indicators
+            map.addSource('temperature', { type: 'geojson', data: getDataFile() });
+            map.addLayer({
+                id: 'temperature',
+                type: 'circle',
+                source: 'temperature',
+                paint: {
+                    'circle-radius': {
+                        'base': 2,
+                        'stops': [
+                            [2, 2],
+                            [4, 4],
+                            [6, 20],
+                            [10, 180]
+                        ]
+                    },
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['number', ['get', 'air_temp']],
+                        10,
+                        '#2DC4B2',
+                        12,
+                        '#3BB3C3',
+                        14,
+                        '#669EC4',
+                        16,
+                        '#8B88B6',
+                        18,
+                        '#A2719B',
+                        20,
+                        '#AA5E79'
+                    ],
+                    'circle-opacity': 0.7
+                }
+            });
+
+            // Creating a popup. Simple one, with no navigation and control buttons.
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+
+            // Adding the popup and filling it with temperature details when hovering over a valid marker
+            map.on('mouseenter', 'temperature', (e) => {
+                // Changing the cursor style
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Setting the coordinates and the content of the popup
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const description = `<strong>Mean temperature in ${e.features[0].properties.year}</strong>
+                <p>Temperature: <em>${e.features[0].properties.air_temp} °C</em><br/>
+                   Location: <em>${e.features[0].geometry.coordinates[1].toFixed(2)}°, ${e.features[0].geometry.coordinates[0].toFixed(2)}°</em>
+                </p>`
+
+                // As per : https://docs.mapbox.com/mapbox-gl-js/example/popup-on-hover/
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                // Populate the popup and set its coordinates
+                popup.setLngLat(coordinates).setHTML(description).addTo(map);
+            });
+
+            // When leaving the marker, let's remove the popup
+            map.on('mouseleave', 'temperature', () => {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+
+            // Add zoom and rotation controls to the map.
+            map.addControl(new mapboxgl.NavigationControl());
+
+            // // DEBUG
+            // map.on('zoom', () => {
+            //     let zoomLevel = map.getZoom();
+            //     console.log("Zoom level: " + zoomLevel);
+            //     document.getElementById('zoom').innerText = zoomLevel;
+            // });
+
+            // Setting a timer and starting the animation
+            timer = setInterval(updateMap, frameLength);
+
+            // update the dataset to the selected year when the slider is moved
+            document.getElementById('slider').addEventListener('input', (event) => {
+                year = parseInt(event.target.value);
+
+                console.log("Slider updated to year: " + year);
+
+                // update the map
+                //console.log("Fetching: " + getDataFile());
+                map.getSource('temperature').setData(getDataFile());
+
+                // update text in the UI
+                document.getElementById('year').innerText = year;
+
+
+
+            });
+
+            // A listener for the toggles: switching the animation on or off
+            // document
+            //     .getElementById('animation')
+            //     .addEventListener('change', (event) => {
+            //         const animation = event.target.value;
+            //         // update the map filter
+
+            //         if (animation === 'animation_on') {
+            //             timer = setInterval(updateMap, 400);
+            //             window.setInterval(timer);
+            //         } else if (animation === 'animation_off') {
+            //             window.clearInterval(timer);
+            //         }
+            //     });
+
+
+            document.getElementById('animationButton').addEventListener('click', function () {
+                const animation = event.target.value;
+                if (animation === 'animation_off') {
+                    timer = setInterval(updateMap, frameLength);
+                    window.setInterval(timer);
+                    document.getElementById('animationButton').innerText = "\u23F8\uFE0EPause";
+                    document.getElementById('animationButton').value = "animation_on";
+                } else if (animation === 'animation_on') {
+                    window.clearInterval(timer);
+                    document.getElementById('animationButton').innerText = "\u23F5\uFE0EPlay";
+                    document.getElementById('animationButton').value = "animation_off";
+                }
+            });
+
+            // Fly-in
+            var idx = 0;
+            var center = [
+                [8.0, 46.0],
+                [-20.0, 15.0]
+            ]
+            var zoom = [
+                4.2,
+                1.9
+            ]
+            var pitch = [
+                [20],
+                [0]
+            ]
+            document.getElementById('flyButton').addEventListener('click', function () {
+                if (idx % 2 == 0) {
+                    document.getElementById('flyButton').innerText = "\u2139\uFE0E Global";
+                } else {
+                    document.getElementById('flyButton').innerText = "\u2139\uFE0E Europe";
+
+                }
+                // Back to the first coordinate.
+                if (idx >= center.length) {
+                    idx = 0;
+                }
+                map.flyTo({
+                    center: center[idx],
+                    zoom: zoom[idx],
+                    pitch: pitch[idx]
+                });
+                idx++;
+            });
+
+
+
+
+        });
+
+        // Temporary storage of the data in memory and the prefetched year number
+        let nextDataPayload = "";
+        let nextDataYear = 0;
+
+        // Getting the data file string
+        function getDataFile() {
+            return `data/viticultural_zone_mean_temp_${year}.geojson`;
+        }
+
+        // A function to prefetch data in an async manner (should speed things up a bit)
+        async function prefetchData(prefetchYear) {
+            let response = await fetch(`data/viticultural_zone_mean_temp_${prefetchYear}.geojson`);
+            let data = await response.json();
+            nextDataPayload = data;
+            nextDataYear = prefetchYear;
+            console.log("[Prefetch] Reveived dataset for year " + nextDataYear);
+        }
+
+        // This function is used to update the map automatically or on a slider move
+        function updateMap() {
+            if (year < yearMax + 1) {
+                // update slider text
+                document.getElementById('year').innerText = year;
+                document.getElementById('slider').value = year;
+
+                // In case we have an updated prefetched year that matches the current one
+                // we could assume that there is a data object already on memory and we do not have
+                // to pull it from the network
+                if (nextDataYear === year) {
+                    console.log("[Prefetch] Using pre-fetched dataset for " + year);
+                    map.getSource('temperature').setData(nextDataPayload);
+                } else {
+                    // Otherwise, let's simply just load the data from the remote location
+                    console.log("Fetching and setting the dataset for year " + year);
+                    map.getSource('temperature').setData(getDataFile());
+                }
+
+                // trying to prefetch the next dataset
+                if (year < yearMax) {
+                    console.log(`[Prefetch] Asking for year : ${year + 1}`);
+                    prefetchData(year + 1);
+                }
+
+                // jumping to the next year
+                year++;
+
+            } else {
+                // Restarting at 1900
+                year = yearMin;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
