@@ -7,27 +7,40 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
   <script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
-
+  
   <script src="echarts.js"></script>
 
   <style>
+    #pagecontent {
+      width: 1000px;
+      margin: auto;
+    }
+    .chartBox {
+      width: 600px;
+      padding: 20px;
+    }
+
     .myContent {
-      overflow: auto;
-      min-width: 100vw;
-      min-height: 100vh;
+      min-width: 860px;
+      min-height: 600px;
+      padding: 20px;
     }
 
     .chartContent {
-      overflow: auto;
-      min-width: 95vw;
-      min-height: 95vh;
-
+      min-width: 800px;
+      min-height: 600px;
+      padding: 20px;
     }
+
   </style>
 
 </head>
 
 <body>
+  <div id="pagecontent">
+  <div class="chartBox">
+    <canvas id="myChart"></canvas>
+  </div>
 
   <div class="selectBox">
     <select id="ChartMenu">
@@ -39,8 +52,9 @@
   </div>
 
   <div id="myContent" class="myContent">
-    <iframe class="chartContent" frameBorder="0" src="echart_grapes.html"></iframe>
+    <object class="chartContent" type="text/html" data="echart_grapes.html" ></object>
   </div>
+</div>
 
   <!--<h1 id="title">London Real Time Air Quality Data</h1>
         <p>Data provided by <a href="https://aqicn.org/data-platform/token/#/">AQICN Open Data Platform</a>.</p>-->
@@ -55,24 +69,24 @@
 
       switch (selectedChart) {
         case "echart1":
-          console.log("Let's work onecharttable.");
-          document.getElementById("myContent").innerHTML = '<iframe class="chartContent" frameBorder="0" src="echart_grapes.html" ></iframe>';
-          break;
+            console.log("Let's work onecharttable.");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="echart_grapes.html" ></object>';
+            break;
 
         case "flourish1":
-          console.log("a");
-          document.getElementById("myContent").innerHTML = '<iframe class="chartContent" frameBorder="0" src="flourish_export.html" ></iframe>';
-          break;
+            console.log("a");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="flourish_export.html" ></object>';
+            break;
 
         case "flourish2":
-          console.log("b");
-          document.getElementById("myContent").innerHTML = '<iframe class="chartContent" frameBorder="0" src="flourish_red_white.html" ></iframe>';
-          break;
+            console.log("b");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="flourish_red_white.html" ></object>';
+            break;
 
         case "echart2":
-          console.log("Let's work echarttable2.");
-          document.getElementById("myContent").innerHTML = '<iframe class="chartContent" frameBorder="0"  src="echart_Wineries_HA.html" ></iframe>';
-          break;
+            console.log("Let's work echarttable2.");
+            document.getElementById("myContent").innerHTML='<object class="chartContent" type="text/html" data="echart_Wineries_HA.html" ></object>';
+            break;
         default:
       }
     });
