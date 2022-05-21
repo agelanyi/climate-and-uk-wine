@@ -140,6 +140,7 @@
         </div>
         <div class="session">
             <h2>Animation</h2>
+            <!-- Initially, we had a radio button group for controlling animation. This is deprecated now. -->
             <!-- <div class="row" id="animation">
                 <input id="animation_on" type="radio" name="toggle" value="animation_on" checked="checked" />
                 <label for="animation_on">On</label>
@@ -166,40 +167,39 @@
     </div>
     <script>
 
-        // Timer milliseconds between frames
-        const frameLength = 350;
-
-        // Our dataset brings info from 1900 to 2017 now
-        const yearMin = 1900;
-        const yearMax = 2017;
-
+        // We are going to start from the year 2000 and switch the animation on
         let year = 2000;
         let animation = 'animation_on';
 
-        // Andras Gelanyi's token
+        // Timer milliseconds between frames
+        const frameLength = 350;
+
+        // Our dataset brings info from 1900 to 2017 for now
+        const yearMin = 1900;
+        const yearMax = 2017;
+
+        // agelanyi's mapbox token
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbGFueWkiLCJhIjoiY2wzNjJlZWxmMDhmZDNlcW5hdGRsZmE2bSJ9.aEhGm87e4fUUnoUpCcF2Ww';
 
-        // Our map
+        // Our map and initial style definition
         const map = new mapboxgl.Map({
             container: 'map',
-            //style: 'mapbox://styles/mapbox/streets-v11',
-            //style: 'mapbox://styles/mapbox/dark-v10',
+            // Picking the mapbox light theme for now
             style: 'mapbox://styles/mapbox/light-v10',
             center: [-20, 15],
             zoom: 1.9,
-            projection: 'naturalEarth' // starting projection
+            // Starting projection
+            projection: 'naturalEarth' 
         });
 
 
+        // On load, all these things are going to happen...
         map.on('load', () => {
 
-            // Not used for now
-            // let filterYear = ['==', ['number', ['get', 'year']], year];
-            // let filterInRange = ['!=', ['string', ['get', 'is_in_temp_range']], 'placeholder'];
-
-            // Add lines on 30, 50 and -30, -50 latitudes
+            // Add a source and layer for lines on 30, 50 and -30, -50 deg latitudes
             map.addSource('ranges', {
                 'type': 'geojson',
+                // An in-line geojson describing these latitudes
                 'data': {
                     'type': 'Feature',
                     'properties': {},
@@ -248,6 +248,8 @@
                 type: 'circle',
                 source: 'temperature',
                 paint: {
+                    // The radius of the markers are going to change when zooming in, this is to provide
+                    // better visibility
                     'circle-radius': {
                         'base': 2,
                         'stops': [
@@ -257,6 +259,8 @@
                             [10, 180]
                         ]
                     },
+                    // Our color scheme is matching the one defined in the HTML's CSS
+                    // Linear steps between the ranges
                     'circle-color': [
                         'interpolate',
                         ['linear'],
@@ -278,7 +282,7 @@
                 }
             });
 
-            // Creating a popup. Simple one, with no navigation and control buttons.
+            // Creating a popup. A simple one, with no navigation and control buttons.
             const popup = new mapboxgl.Popup({
                 closeButton: false,
                 closeOnClick: false
@@ -327,23 +331,22 @@
             // Setting a timer and starting the animation
             timer = setInterval(updateMap, frameLength);
 
-            // update the dataset to the selected year when the slider is moved
+            // Update the dataset to the selected year when the slider is moved
             document.getElementById('slider').addEventListener('input', (event) => {
                 year = parseInt(event.target.value);
 
                 console.log("Slider updated to year: " + year);
 
-                // update the map
+                // Updating the map
                 //console.log("Fetching: " + getDataFile());
                 map.getSource('temperature').setData(getDataFile());
 
-                // update text in the UI
+                // Updating the year element of the UI
                 document.getElementById('year').innerText = year;
-
-
 
             });
 
+            // Initially, we had a radio button group for controlling animation. This is deprecated now.
             // A listener for the toggles: switching the animation on or off
             // document
             //     .getElementById('animation')
@@ -359,7 +362,7 @@
             //         }
             //     });
 
-
+            // Handling events of the Animation Button
             document.getElementById('animationButton').addEventListener('click', function () {
                 const animation = event.target.value;
                 if (animation === 'animation_off') {
@@ -374,7 +377,7 @@
                 }
             });
 
-            // Fly-in
+            // Preparing the Fly-in settings and storing intermediate coordinates
             var idx = 0;
             var center = [
                 [8.0, 46.0],
@@ -388,7 +391,9 @@
                 [20],
                 [0]
             ]
+            // Handling events of the Fly-in Button
             document.getElementById('flyButton').addEventListener('click', function () {
+                // Updating the text on te button, adding unicode pictograms
                 if (idx % 2 == 0) {
                     document.getElementById('flyButton').innerText = "\u2139\uFE0E Global";
                 } else {
@@ -399,6 +404,7 @@
                 if (idx >= center.length) {
                     idx = 0;
                 }
+                // Fly to the selected coordinates
                 map.flyTo({
                     center: center[idx],
                     zoom: zoom[idx],
@@ -407,10 +413,12 @@
                 idx++;
             });
 
-
-
-
         });
+
+        // The following variables and functions are implementing a naiive approach
+        // towards prefetching. In case the animation is playing, the next year's
+        // dataset will be downloaded before the actual frame. It is not changing 
+        // things drastically, but can smoothen out frame blocks from time to time.
 
         // Temporary storage of the data in memory and the prefetched year number
         let nextDataPayload = "";
@@ -427,19 +435,21 @@
             let data = await response.json();
             nextDataPayload = data;
             nextDataYear = prefetchYear;
-            console.log("[Prefetch] Reveived dataset for year " + nextDataYear);
+            console.log("[Prefetch] Received dataset for year " + nextDataYear);
         }
 
-        // This function is used to update the map automatically or on a slider move
+        // This function is used to update the map automatically or on a slider move,
+        // called by the event listener on the control
         function updateMap() {
             if (year < yearMax + 1) {
-                // update slider text
+                // Update slider text and move the slider to the right location
                 document.getElementById('year').innerText = year;
                 document.getElementById('slider').value = year;
 
                 // In case we have an updated prefetched year that matches the current one
                 // we could assume that there is a data object already on memory and we do not have
-                // to pull it from the network
+                // to pull it from the network. It is a simple assumption, but should work in
+                // our case.
                 if (nextDataYear === year) {
                     console.log("[Prefetch] Using pre-fetched dataset for " + year);
                     map.getSource('temperature').setData(nextDataPayload);
@@ -449,7 +459,7 @@
                     map.getSource('temperature').setData(getDataFile());
                 }
 
-                // trying to prefetch the next dataset
+                // trying to prefetch the next dataset and execute it asynchronously
                 if (year < yearMax) {
                     console.log(`[Prefetch] Asking for year : ${year + 1}`);
                     prefetchData(year + 1);
@@ -459,7 +469,7 @@
                 year++;
 
             } else {
-                // Restarting at 1900
+                // Restarting at 1900 once we got to the yearMax
                 year = yearMin;
             }
         }
