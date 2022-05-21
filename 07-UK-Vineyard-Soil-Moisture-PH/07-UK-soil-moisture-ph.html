@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Soil moisture and PH</title>
+  <script src="echarts.js"></script>
+</head>
+
+<body>
+  <!-- Prepare a DOM with a defined width and height for ECharts -->
+  <div id="moisture" style="width: 95vw;height:40vh; padding: 0;"></div>
+  <div id="ph" style="width: 95vw;height:50vh;padding: 0;"></div>
+
+  <script type="text/javascript">
+
+    var chartSoilMoisture = echarts.init(document.getElementById('moisture'));
+    var chartSoilPH = echarts.init(document.getElementById('ph'));
+
+    var optionSoilMoisture = {
+      xAxis: {
+        type: 'category',
+        name: 'band value',
+        data: ['25% - 26%', '26% - 27%', '27% - 28%', '28% - 29%', '29% - 30%', '30% - 31%', '31% - 32%', '32% - 33%', '33% - 34%', '34% - 35%', '35% - 36%', '36% - 37%', '37% - 38%', '38% - 39%', '39% - 40%']
+      },
+      yAxis: {
+        type: 'value',
+        name: 'b0 count',
+      },
+      series: [
+        {
+          data: [0, 49, 184, 630.11, 1262.02, 2375.06, 2865.06, 4670.98, 2957.93, 3143.98, 1592.58, 1319.10, 299.404, 304, 56
+          ],
+          type: 'bar',
+          color: '#669EC4'
+        }
+      ]
+    };
+
+    var optionSoilPH = {
+      xAxis: {
+        type: 'category',
+        name: 'PH value',
+        data: ['6-6.1', '6.1-6.2', '6.2-6.3', '6.3-6.4', '6.4-6.5', '6.5-6.6', '6.6-6.7', '6.7-6.8', '6.8-6.9', '6.9-7', '7-7.1', '7.1-7.2', '7.2-7.3']
+      },
+      yAxis: {
+        type: 'value',
+        name: 'b0 count',
+      },
+      series: [
+        {
+          data: [
+            {
+              value: 0.188,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 248,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 848.396,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 3318.20,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 4680.81,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 5299,
+              itemStyle: {
+                color: '#669EC4'
+              }
+            },
+            {
+              value: 3681.32,
+              itemStyle: {
+                color: '#669EC4'
+              }
+            },
+            {
+              value: 2466.67,
+              itemStyle: {
+                color: '#669EC4'
+              }
+            },
+            {
+              value: 444.784,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 593.851,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 64,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 0,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+            {
+              value: 64,
+              itemStyle: {
+                color: '#AA5E79'
+              }
+            },
+          ],
+          type: 'bar'
+        }
+      ]
+    };
+
+    // Display the charts using the configuration items and data just specified.
+    chartSoilMoisture.setOption(optionSoilMoisture);
+    chartSoilPH.setOption(optionSoilPH);
+
+  </script>
+</body>
+
+</html>
