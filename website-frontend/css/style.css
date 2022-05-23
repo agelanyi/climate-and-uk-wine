@@ -295,6 +295,36 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   height: 100%;
   border: none;
 }
+.graph-rain {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 5%;
+  left: 1%;
+  right: 5%;
+  bottom: 40%;
+  height: 40%;
+  width: 65%
+  }
+.graph-temp {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 38%;
+  left: 1%;
+  right: 5%;
+  bottom: 40%;
+  height: 30%;
+  width: 65%
+  }
+.graph-sun {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 68%;
+  left: 1%;
+  right: 5%;
+  bottom: 40%;
+  height: 30%;
+  width: 65%
+  }
 
 h2 {
   text-transform: none;
