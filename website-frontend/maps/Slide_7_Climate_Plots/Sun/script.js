@@ -4,7 +4,7 @@ var TITLE = 'Climate: Annual Sunshine';
 var X_AXIS = 'Year';
 
 // y-axis label and label in tooltip
-var Y_AXIS = 'Brigh Sunshine'; 
+var Y_AXIS = 'Bright Sunshine (Unit unknown)'; 
 
 // Should y-axis start from 0? `true` or `false`
 var BEGIN_AT_ZERO = false;
@@ -42,7 +42,7 @@ $(document).ready(function() {
 
     new Chart(ctx, {
       type: 'line',
-
+      backgroundColor: "transparent",
       data: {
         labels: timeLabels,
         datasets: datasets,
