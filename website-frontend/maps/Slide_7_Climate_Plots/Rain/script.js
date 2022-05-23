@@ -13,7 +13,7 @@ var BEGIN_AT_ZERO = false;
 var SHOW_GRID = true;
 
  // `true` to show the legend, `false` to hide
-var SHOW_LEGEND = true;
+var SHOW_LEGEND = false;
 
 // Hide scroll bar
 
