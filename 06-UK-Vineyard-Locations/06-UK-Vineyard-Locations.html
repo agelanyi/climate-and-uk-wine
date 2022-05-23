@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Slide 6: Vineyard Locations</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- loading font -->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <script src="mapbox-gl-sync-move.js"></script>
+
+    <style>
+        body { margin:0; 
+          padding:0; 
+          font-family: 'Titillium Web', sans-serif;
+        }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style
+</head>
+<body>
+
+<style>
+  p{
+    font-size:15px;
+  }
+h1 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  h2 {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #2DC4B2;
+  }
+
+  #console {
+    position: absolute;
+    overflow-y: scroll;
+    top: 0%;
+    margin: 10px;
+    height: 100%; 
+    width: 15%;
+    background-color: white;
+    padding: 10px 20px  }
+
+  .session {
+    margin-bottom: 20px;
+      
+  }
+
+  .row {
+    height: 12px;
+    width: 100%
+  }
+
+  .colors {
+    background: linear-gradient(to right, #2dc4b2, #3bb3c3,#669ec4, #8b88b6);;
+    margin-bottom: 1%;
+  }
+
+  .label {
+    width: 13%;
+    display: inline-block;
+    text-align: center;
+  }
+    .story {
+     scrollbar-width: auto;
+     background-color: #F5F5F5;
+     border: 1px solid #DDDDDD;
+     border-radius: 4px 0 4px 0;
+     height: 50%;
+     margin-bottom: 20px;
+     overflow: scroll;
+     overflow-x: hidden;
+     padding: 5px 5px 5px;
+        }
+body {
+    overflow: hidden;
+}
+
+body * {
+   -webkit-touch-callout: none;
+     -webkit-user-select: none;
+        -moz-user-select: none;
+         -ms-user-select: none;
+             user-select: none;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#before{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    right: 31%
+}
+
+#after {
+    position: absolute;
+    top: 0;
+    left: 61%;
+    bottom: 0;
+    width: 50%;
+}
+
+#divider {
+    background-color: gray;
+    position: absolute;
+    left: 61%;
+    top: 0;
+    bottom: 0;
+    width: 0.2%;
+    z-index: 2;
+}
+.circle {
+    position:relative;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px; 
+    float:right;
+  }
+</style>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+
+<div id='before' class='map'></div>
+<div id='divider'></div>
+<div id='after' class='map'></div>
+<div id='console'>    
+<div id="session">
+    <h1>The Vineyards of the UK</h1>
+    <p>Currently, there are 860 Vineyards and wineries throughout the UK.</p>
+ <p>These maps explore the distribution of viticulture in the UK. You can look at them by country by changing the toggle. To discover details about each vineyard, click on the circle to show the name, country, country, and website for that Vineyard.</p>
+    <p>The heatmap examines the distribution of Vineyards, weighted by their size. </p>
+<p>From these maps, Vineyards are now present across the UK. However, there is also a dense concentration within the South-East region. Co-currently, the density of Vineyards decreases in a northerly direction.  Considering the change in climate, this trend corroborates the northerly annual increases in temperature. Continue scrolling to uncover more detail about this change in the climate.</p>
+
+<h2>Country</h2>
+      <div class='row' id='filters'>
+        <input id='mapbox://styles/rubyjohnson/cl304xeay000j14qh0qzrktc4' type='radio' name='toggle' value='all' checked='checked'>
+        <label for='all'>All Vineyards</label>
+        <input id='mapbox://styles/rubyjohnson/cl36dv898000214l8kb9qegq4' type='radio' name='toggle' value='Country'>
+        <label for='Country'>By Country</label>
+</div>
+      <h2>Hectres Planted</h2>
+      <div class='row colors'>
+      </div>
+      <div class='row labels'>
+        <div class='label'>0</div>
+        <div class='label'>20</div>
+        <div class='label'>40</div>
+        <div class='label'>60</div>
+        <div class='label'>90</div>
+        <div class='label'>130</div>
+        <div class='label'>175</div>
+        <div class='label'> </div>
+      
+     <h2>Legend</h2>
+      <div><span class="circle", style="background-color: #AA5E79 "></span>All Vineyards</div>
+      <div><span class="circle", style="background-color: #8a87b5"></span>England</div>
+      <div><span class="circle", style="background-color: #2a9d8f"></span>Wales</div>
+      <div><span class="circle", style="background-color: #2cc3b2">
+      </span>Ireland</div>
+      <div><span class="circle", style="background-color: #659dc3"></span>Northern Ireland</div>
+      <div><span class="circle", style="background-color: #3bb4c4"></span>Scotland</div>
+    
+</div>
+    </div>
+  
+
+    </div>
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoicnVieWpvaG5zb24iLCJhIjoiY2t5bGUxYjYyMDVlbzJ2bzRkenUwenR5NiJ9.DJqkRqSMng99_9CRtbPwgg';
+var beforeMap = new mapboxgl.Map({
+    container: 'before',
+    style: 'mapbox://styles/rubyjohnson/cl304xeay000j14qh0qzrktc4',
+    center: [-2, 54],
+    zoom: 4.8,
+   
+});
+
+var afterMap = new mapboxgl.Map({
+    container: 'after',
+    style: 'mapbox://styles/rubyjohnson/cl3774i8m001614oczkv1eb3i',
+    center: [-2, 54],
+    zoom: 4.8
+
+});
+
+
+    
+// coordination between the two maps
+var disable = false;
+  beforeMap.on("move", function() {
+    if (!disable) {
+      var center = beforeMap.getCenter();
+      var zoom = beforeMap.getZoom();
+      var pitch = beforeMap.getPitch();
+      var bearing = beforeMap.getBearing();
+
+      disable = true;
+      afterMap.setCenter(center);
+      afterMap.setZoom(zoom);
+      afterMap.setPitch(pitch);
+      afterMap.setBearing(bearing);
+      disable = false;
+    }
+  })
+
+  afterMap.on("move", function() {
+    if (!disable) {
+      var center = afterMap.getCenter();
+      var zoom = afterMap.getZoom();
+      var pitch = afterMap.getPitch();
+      var bearing = afterMap.getBearing();
+
+      disable = true;
+      beforeMap.setCenter(center);
+      beforeMap.setZoom(zoom);
+      beforeMap.setPitch(pitch);
+      beforeMap.setBearing(bearing);
+      disable = false;
+    }
+  })
+
+
+beforeMap.on('click', function(e) {
+  var features = beforeMap.queryRenderedFeatures(e.point, {
+   
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties["Vineyard Name"] + '<h4> Country: ' + feature.properties["Vineyard Country"] + '<h4> County: ' + feature.properties["Vineyard County"] +
+            '<h4> Website: ' + '<a href='+ feature.properties["Website Address"] + ">" + feature.properties["Website Address"] + "</a></h4>")
+    .addTo(beforeMap);
+
+    
+});
+     
+afterMap.on('click', function(e) {
+  var features = afterMap.queryRenderedFeatures(e.point, {
+   
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties["Vineyard Name"] + '<h4> HA: ' + feature.properties["Ha of planted vines"] )
+    .addTo(afterMap);
+
+    
+});
+afterMap.on('mouseenter', 'a2', function () {
+    afterMap.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+afterMap.on('mouseleave', 'a2', function () {
+    afterMap.getCanvas().style.cursor = '';
+});
+
+const layerList = document.getElementById('session');
+const inputs = layerList.getElementsByTagName('input');
+ 
+for (const input of inputs) {
+input.onclick = (layer) => {
+const layerId = layer.target.id;
+beforeMap.setStyle(layerId);
+};
+}
+       
+</script>
+
+</body>
+</html>
