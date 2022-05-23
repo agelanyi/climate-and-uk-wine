@@ -296,6 +296,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   border: none;
 }
 .graph-rain {
+  border: none;
   position: absolute;
   top: 5%;
   left: 1%;
@@ -305,6 +306,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   width: 65%
   }
 .graph-temp {
+  border: none;
   position: absolute;
   top: 38%;
   left: 1%;
@@ -314,6 +316,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   width: 65%
   }
 .graph-sun {
+  border: none;
   position: absolute;
   top: 68%;
   left: 1%;
