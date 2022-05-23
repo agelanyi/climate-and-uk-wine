@@ -1,4 +1,4 @@
-var TITLE = 'Local Climate: Precipitation';
+var TITLE = 'Climate: Precipitation';
 
 // x-axis label and label in tooltip
 var X_AXIS = 'Year';
@@ -42,6 +42,7 @@ $(document).ready(function() {
 
     new Chart(ctx, {
       type: 'line',
+      backgroundColor: "transparent",
 
       data: {
         labels: timeLabels,
