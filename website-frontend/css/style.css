@@ -296,6 +296,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   border: none;
 }
 .graph-rain {
+  overflow: hidden;
   border: none;
   position: absolute;
   top: 5%;
