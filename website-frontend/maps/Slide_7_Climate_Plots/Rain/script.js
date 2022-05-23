@@ -1,4 +1,4 @@
-var TITLE = 'Climate: Precipitation';
+var TITLE = 'Local Climate: Precipitation';
 
 // x-axis label and label in tooltip
 var X_AXIS = 'Year';
