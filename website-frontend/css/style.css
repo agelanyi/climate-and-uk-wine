@@ -301,7 +301,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   top: 5%;
   left: 1%;
   right: 5%;
-  bottom: 40%;
+
   height: 30%;
   width: 65%
   }
@@ -311,7 +311,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   top: 38%;
   left: 1%;
   right: 5%;
-  bottom: 40%;
+
   height: 30%;
   width: 65%
   }
@@ -321,7 +321,6 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   top: 68%;
   left: 1%;
   right: 5%;
-  bottom: 40%;
   height: 30%;
   width: 65%
   }
