@@ -296,14 +296,14 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   border: none;
 }
 .graph-rain {
-  overflow: hidden;
+  overflow: visible;
   border: none;
   position: absolute;
   top: 5%;
   left: 1%;
   right: 5%;
 
-  height: 27%;
+  height: 40%;
   width: 65%
   }
 .graph-temp {
