@@ -299,31 +299,31 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   overflow: visible;
   border: none;
   position: absolute;
-  top: 5%;
+  top: 3%;
   left: 1%;
   right: 5%;
 
-  height: 40%;
+  height: 36%;
   width: 65%
   }
 .graph-temp {
-  overflow: hidden;
+  overflow: visible;
   border: none;
   position: absolute;
-  top: 38%;
+  top: 35%;
   left: 1%;
   right: 5%;
-  height: 27%;
+  height: 36%;
   width: 65%
   }
 .graph-sun {
-  overflow: hidden;
+  overflow: visible;
   border: none;
   position: absolute;
-  top: 68%;
+  top: 64%;
   left: 1%;
   right: 5%;
-  height: 27%;
+  height: 36%;
   width: 65%
   }
 
