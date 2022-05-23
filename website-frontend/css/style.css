@@ -303,26 +303,27 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   left: 1%;
   right: 5%;
 
-  height: 30%;
+  height: 27%;
   width: 65%
   }
 .graph-temp {
+  overflow: hidden;
   border: none;
   position: absolute;
   top: 38%;
   left: 1%;
   right: 5%;
-
-  height: 30%;
+  height: 27%;
   width: 65%
   }
 .graph-sun {
+  overflow: hidden;
   border: none;
   position: absolute;
   top: 68%;
   left: 1%;
   right: 5%;
-  height: 30%;
+  height: 27%;
   width: 65%
   }
 
