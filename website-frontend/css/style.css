@@ -295,7 +295,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   height: 100%;
   border: none;
 }
-.graph-rain {
+.graph-temp {
   overflow: visible;
   border: none;
   position: absolute;
@@ -306,7 +306,7 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   height: 36%;
   width: 65%
   }
-.graph-temp {
+.graph-sun {
   overflow: visible;
   border: none;
   position: absolute;
@@ -316,11 +316,11 @@ body.fp-viewing-fifthSection-1 #menu li:last-child a {
   height: 36%;
   width: 65%
   }
-.graph-sun {
+.graph-rain {
   overflow: visible;
   border: none;
   position: absolute;
-  top: 64%;
+  top: 67%;
   left: 1%;
   right: 5%;
   height: 36%;
