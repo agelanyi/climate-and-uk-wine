@@ -53,12 +53,13 @@ $(document).ready(function() {
         title: {
           display: true,
           text: TITLE,
-          fontSize: 14,
+          fontSize: 20,
         },
         legend: {
           display: SHOW_LEGEND,
           postion:"top",
-          Align: "start"
+          Align: "start",
+          fontsize: 15
         },
         maintainAspectRatio: false,
         scales: {
