@@ -18,7 +18,7 @@ $("#fullpage").fullpage({
     "#DCDBE9",
     "#2DC4B2",
     "#3BB3C3",
-    "#669EC4",
+    "#DCDBE9",
     "#DCDBE9",
     "#A2719B",
     "#AA5E79",
