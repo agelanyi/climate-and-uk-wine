@@ -1,4 +1,4 @@
-var TITLE = 'Climates: Temperature';
+var TITLE = 'Local Climate: Temperature';
 
 // x-axis label and label in tooltip
 var X_AXIS = 'Year';
@@ -53,12 +53,13 @@ $(document).ready(function() {
         title: {
           display: true,
           text: TITLE,
-          fontSize: 14,
+          fontSize: 20,
         },
         legend: {
           display: SHOW_LEGEND,
           postion:"top",
-          Align: "start"
+          Align: "start",
+          fontSize: 15
         },
         maintainAspectRatio: false,
         scales: {
