@@ -173,6 +173,8 @@
 
         // Timer milliseconds between frames
         const frameLength = 350;
+        // Global timer
+        let timer;
 
         // Our dataset brings info from 1900 to 2017 for now
         const yearMin = 1900;
@@ -364,7 +366,7 @@
 
             // Handling events of the Animation Button
             document.getElementById('animationButton').addEventListener('click', function () {
-                const animation = event.target.value;
+                animation = event.target.value;
                 if (animation === 'animation_off') {
                     timer = setInterval(updateMap, frameLength);
                     window.setInterval(timer);
@@ -472,6 +474,47 @@
                 // Restarting at 1900 once we got to the yearMax
                 year = yearMin;
             }
+        }
+
+        // Adding an intersection observer to control the animation based on visibility of our map
+        // this is to make sure that we are not using resources when the container is not visible
+        // Based on: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+        let mapElement;
+        window.addEventListener("load", (event) => {
+            mapElement = document.querySelector("#map");
+            createObserver();
+        }, false);
+
+        function createObserver() {
+            let observer;
+
+            let options = {
+                root: null,
+                rootMargin: "0px",
+                threshold: [0.0, 0.1, 0.5, 0.9, 1.0]
+            };
+
+            observer = new IntersectionObserver(handleIntersect, options);
+            observer.observe(mapElement);
+        }
+
+        function handleIntersect(entries, observer) {
+            entries.forEach((entry) => {
+                // console.log("[handleIntersect] on: " + entry.id + " intersectRatio: " + entry.intersectionRatio);
+
+                if (entry.intersectionRatio < 0.05) {
+                    console.log("02-Global-Viticultural-Climate-Zones map is not visible, stopping animation, ratio: " + entry.intersectionRatio);
+                    if (animation === "animation_off") {
+                        window.clearInterval(timer);
+                    }
+                } else {
+                    console.log("02-Global-Viticultural-Climate-Zones map is visible, enabling animation if needed, ratio: " + entry.intersectionRatio);
+                    if (animation === "animation_off") {
+                        timer = setInterval(updateMap, frameLength);
+                        window.setInterval(timer);
+                    }          
+                }
+            });
         }
 
     </script>
