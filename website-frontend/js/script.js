@@ -42,7 +42,7 @@ $("#fullpage").fullpage({
     "fifthSection",
     "sixthSection",
     "seventhSection",
-    "eigthSection",
+    "eighthSection",
     "ninethSection",
     "tenthSection",
     "eleventhSection",
