@@ -42,7 +42,7 @@ function showWineriesSizeChart(elementId) {
           label: {
             formatter: function (params) {
               return (
-                'Precipitation  ' +
+                'Year  ' +
                 params.value +
                 (params.seriesData.length ? '：' + params.seriesData[0].data : '')
               );
@@ -67,7 +67,7 @@ function showWineriesSizeChart(elementId) {
           label: {
             formatter: function (params) {
               return (
-                'Precipitation  ' +
+                'Production  ' +
                 params.value +
                 (params.seriesData.length ? '：' + params.seriesData[0].data : '')
               );
