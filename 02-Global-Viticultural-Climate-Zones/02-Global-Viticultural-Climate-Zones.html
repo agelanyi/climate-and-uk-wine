@@ -147,7 +147,7 @@
                 <input id="animation_off" type="radio" name="toggle" value="animation_off" />
                 <label for="animation_off">Off</label>
             </div> --><div class="session">
-            <button id="animationButton" class="button" value="animation_on">&#x23F8;&#xFE0E;Pause</button>
+            <button id="animationButton" class="button" value="animation_off">&#x23F8;&#xFE0E;Pause</button>
             <button id="flyButton" class="button">&#x2139;&#xFE0E; Europe</button>
         </div>
     </div>
@@ -168,13 +168,14 @@
     <script>
 
         // We are going to start from the year 2000 and switch the animation on
-        let year = 2000;
-        let animation = 'animation_on';
+        var year = 2000;
+        var animation = 'animation_on';
 
         // Timer milliseconds between frames
-        const frameLength = 350;
+        //const frameLength = 350;
+        const frameLength = 1000;
         // Global timer
-        let timer;
+        var timer = null;
 
         // Our dataset brings info from 1900 to 2017 for now
         const yearMin = 1900;
@@ -331,7 +332,9 @@
             // });
 
             // Setting a timer and starting the animation
-            timer = setInterval(updateMap, frameLength);
+
+            // UPDATE: do not start animation for now, wait for visibility of the frame (IntersectObserver event)
+            //timer = setInterval(updateMap, frameLength);
 
             // Update the dataset to the selected year when the slider is moved
             document.getElementById('slider').addEventListener('input', (event) => {
@@ -367,15 +370,23 @@
             // Handling events of the Animation Button
             document.getElementById('animationButton').addEventListener('click', function () {
                 animation = event.target.value;
-                if (animation === 'animation_off') {
-                    timer = setInterval(updateMap, frameLength);
-                    window.setInterval(timer);
+
+                if (animation == 'animation_on') {
+                    // console.log("================= STARTING ANIMATION =================" + " Animation value: " + animation);
+                    if(!timer) {
+                        timer = setInterval(updateMap, frameLength);
+                        window.setInterval(timer);
+                    }
                     document.getElementById('animationButton').innerText = "\u23F8\uFE0EPause";
-                    document.getElementById('animationButton').value = "animation_on";
-                } else if (animation === 'animation_on') {
-                    window.clearInterval(timer);
-                    document.getElementById('animationButton').innerText = "\u23F5\uFE0EPlay";
                     document.getElementById('animationButton').value = "animation_off";
+                } else if (animation == 'animation_off') {
+                    // console.log("================= STOPPING ANIMATION =================" + " Animation value: "+ animation);
+                    if (timer) {
+                        window.clearInterval(timer);
+                        timer = null;
+                    }
+                    document.getElementById('animationButton').innerText = "\u23F5\uFE0EPlay";
+                    document.getElementById('animationButton').value = "animation_on";
                 }
             });
 
@@ -485,33 +496,47 @@
             createObserver();
         }, false);
 
+        // This function created the observer
         function createObserver() {
             let observer;
 
             let options = {
                 root: null,
                 rootMargin: "0px",
-                threshold: [0.0, 0.1, 0.5, 0.9, 1.0]
+                threshold: [0.0, 0.1, 0.5, 0.9, 1.0] // A simple set of thresholds, perhaps a even too many of them
             };
 
+            // Add the handler to the observer
             observer = new IntersectionObserver(handleIntersect, options);
             observer.observe(mapElement);
         }
 
+        // Function called on any intersect event as per the thresholds defined.
         function handleIntersect(entries, observer) {
             entries.forEach((entry) => {
                 // console.log("[handleIntersect] on: " + entry.id + " intersectRatio: " + entry.intersectionRatio);
 
                 if (entry.intersectionRatio < 0.05) {
-                    console.log("02-Global-Viticultural-Climate-Zones map is not visible, stopping animation, ratio: " + entry.intersectionRatio);
-                    if (animation === "animation_off") {
-                        window.clearInterval(timer);
+                    console.log("02-Global-Viticultural-Climate-Zones map is not visible, stopping animation if needed, ratio: " + entry.intersectionRatio);
+                    // If animation is off, we do not need to do anything
+                    if (animation == 'animation_on') {
+                        // Just removing the timer and stopping animation temporarily,
+                        // Once the window is re-focused, we can start it
+                        if (timer) {
+                            window.clearInterval(timer);
+                            timer = null;
+                        }
                     }
                 } else {
                     console.log("02-Global-Viticultural-Climate-Zones map is visible, enabling animation if needed, ratio: " + entry.intersectionRatio);
-                    if (animation === "animation_off") {
-                        timer = setInterval(updateMap, frameLength);
-                        window.setInterval(timer);
+                    // If animation is off, we do not need to do anything
+                    if (animation == 'animation_on') {
+                        // Again, not changing tha animation global setting,
+                        // just enabling animations again as we have gained focus and visibility
+                        if (!timer) {
+                            timer = setInterval(updateMap, frameLength);
+                            window.setInterval(timer);
+                        }
                     }          
                 }
             });
