@@ -1,10 +1,10 @@
 var TITLE = 'Precipitation';
 
 // x-axis label and label in tooltip
-var X_AXIS = 'Year';
+var X_AXIS = ''; // AG: let's not wast space with the year
 
 // y-axis label and label in tooltip
-var Y_AXIS = 'Precipitation (millimeters)'; 
+var Y_AXIS = 'Annual rainfall (mm)'; 
 
 // Should y-axis start from 0? `true` or `false`
 var BEGIN_AT_ZERO = false;
@@ -64,8 +64,8 @@ $(document).ready(function() {
         },
         legend: {
           display: SHOW_LEGEND,
-          postion:"top",
-        fontsize: 15
+          position: "chartArea",
+          fontsize: 15
         },
         maintainAspectRatio: false,
         scales: {
