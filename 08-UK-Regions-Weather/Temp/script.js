@@ -4,7 +4,7 @@ var TITLE = 'Temperature';
 var X_AXIS = ''; // AG: let's not wast space with the year
 
 // y-axis label and label in tooltip
-var Y_AXIS = 'Avg Temperature (°C)'; 
+var Y_AXIS = 'Avg temperature (°C)'; 
 
 // Should y-axis start from 0? `true` or `false`
 var BEGIN_AT_ZERO = false;

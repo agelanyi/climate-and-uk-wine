@@ -4,7 +4,7 @@ var TITLE = 'Sunshine';
 var X_AXIS = ''; // AG: let's not wast space with the year
 
 // y-axis label and label in tooltip
-var Y_AXIS = 'Bright Sunshine (hrs)'; 
+var Y_AXIS = 'Bright sunshine (hrs)'; 
 
 // Should y-axis start from 0? `true` or `false`
 var BEGIN_AT_ZERO = false;
