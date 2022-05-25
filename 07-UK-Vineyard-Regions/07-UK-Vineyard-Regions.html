@@ -300,7 +300,7 @@ width: 10px;
 
 </div>
     <div class='session'>
-      <h2>Hectres Planted</h2>
+      <h2>Hectares Planted</h2>
       <div class='row colors'>
       </div>
       <div class='row labels'>
@@ -310,7 +310,7 @@ width: 10px;
         <div class='label'>60</div>
         <div class='label'>90</div>
         <div class='label'>130</div>
-        <div class='label'>175</div>
+        <div class='label'>175(ha)</div>
         <div class='label'> </div>
         </div></div> </div>
     <div id="console2"><b><p>Use your mouse to hover over the map.</p></b></div>
@@ -377,7 +377,7 @@ map.on('load', function() {
         if (la.length==1) {   // This if statement is run when the mouse is over a local authority
 
         map.setFilter('Countyline', ['==','NAME_2',la[0].properties.NAME_2]);
-        console.log(la[0].properties.NAME_2);    document.getElementById('console2').innerHTML = "<b><p> County:</b> " + la[0].properties.NAME_2 + "<br><p> <b><p>Count of Vineyards: </b>" + la[0].properties["Number of"] +"<br><p><b> Hectares Planted: </b>" + la[0].properties["Sum of Ha"]  ;
+        console.log(la[0].properties.NAME_2);    document.getElementById('console2').innerHTML = "<p><b>County:</b> " + la[0].properties.NAME_2 + "<br><b>Count of Vineyards: </b>" + la[0].properties["Number of"] +"<br><b> Hectares Planted: </b>" + la[0].properties["Sum of Ha"].toFixed(2) + " ha</p>"  ;
         console.log(la[0].id);
         console.log(la);
 
