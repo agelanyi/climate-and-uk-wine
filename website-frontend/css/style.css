@@ -364,6 +364,11 @@ h3 {
   font-size: medium;
   font-weight: 400;
   font-size: 1.5em;
+  overflow: visible;
+  overflow-y: auto;
+  scrollbar-width: auto;
+  /* AG: setting the max height to force a scrollbar */
+  max-height: 60vh;
 }
 
 .paragraph-references {
