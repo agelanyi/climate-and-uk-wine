@@ -372,6 +372,20 @@ h3 {
   max-height: 63vh;
 }
 
+.paragraph-ref {
+  background-color: rgba(255, 255, 255, 0.166);
+  text-align: left;
+  padding: 3%;
+  line-height: 1.5;
+  font-size: medium;
+  font-weight: 400;
+  font-size: 1.5em;
+  overflow-y: auto;
+  scrollbar-width: auto;
+  /* AG: setting the max height to force a scrollbar */
+  max-height: 63vh;
+}
+
 .paragraph-references {
   background-color: rgba(255, 255, 255, 0.166);
   text-align: left;
