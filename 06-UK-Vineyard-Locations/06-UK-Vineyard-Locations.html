@@ -157,11 +157,11 @@
       <p>Currently, there are 860 Vineyards and wineries throughout the UK.</p>
       <p>These maps explore the distribution of viticulture in the UK. You can look at them by country by changing the
         toggle. To discover details about each vineyard, click on the circle to show the name, country, country, and
-        website for that Vineyard.</p>
-      <p>The heatmap examines the distribution of Vineyards, weighted by their size. </p>
-      <p>From these maps, Vineyards are now present across the UK. However, there is also a dense concentration within
+        website for that Vineyard. If the website is not available, click the google search option. </p>
+      <p>The heatmap examines the distribution of Vineyards, weighted by their size in hectares. </p>
+      <p>From these maps, it is clear that Vineyards are now present across the UK. Notably, there is a dense concentration within
         the South-East region. Co-currently, the density of Vineyards decreases in a northerly direction. Considering
-        the change in climate, this trend corroborates the northerly annual increases in temperature. Continue scrolling
+        the change in climate, this trend corroborates the northerly annual increases in temperature. Continue below
         to uncover more detail about this change in the climate.</p>
 
       <h2>Country</h2>
@@ -267,10 +267,10 @@
 
       var feature = features[0];
 
-      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+     var popup = new mapboxgl.Popup({ offset: [0, -15] })
         .setLngLat(feature.geometry.coordinates)
         .setHTML('<h3>' + feature.properties["Vineyard Name"] + '<h4> Country: ' + feature.properties["Vineyard Country"] + '<h4> County: ' + feature.properties["Vineyard County"] +
-          '<h4> Website: ' + '<a href=' + feature.properties["Website Address"] + ">" + feature.properties["Website Address"] + "</a></h4>")
+          '<h4> Website: ' + '<a href = https://www.google.com/search?q=' + feature.properties["Website Address"] + ">" +feature.properties["Website Address"] + "</a></h4>" + '<a href = https://www.google.com/search?q=Vineyard' + feature.properties["Vineyard Name"] + ">Google Search" + "</h4>")
         .addTo(beforeMap);
 
 
