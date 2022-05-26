@@ -1,0 +1,194 @@
+,NAME_2,Sum of Ha of planted vines,Number of Vineyards
+0,Barking and Dagenham,0,0
+1,Bath and North East Somerset,2.43,4
+2,Bedfordshire,5.59,5
+3,Berkshire,40.2,11
+4,Bexley,0,0
+5,Blackburn with Darwen,0,0
+6,Bournemouth,0,0
+7,Brent,0,0
+8,Brighton and Hove,0,0
+9,Bristol,0.2,1
+10,Bromley,0,0
+11,Buckinghamshire,19.81,14
+12,Cambridgeshire,9.98,7
+13,Camden,0,0
+14,Cheshire,1.3,2
+15,Cornwall,30.38,16
+16,Croydon,0,0
+17,Cumbria,0.72,1
+18,Darlington,0,0
+19,Derby,0,0
+20,Derbyshire,3.08,6
+21,Devon,84.46,54
+22,Dorset,73.18,27
+23,Durham,1,1
+24,Ealing,0,0
+25,East Riding of Yorkshire,8.57,6
+26,East Sussex,383.11,71
+27,Enfield,0,0
+28,Essex,249.26,47
+29,Gloucestershire,84.68,28
+30,Greenwich,0,0
+31,Hackney,0,0
+32,Halton,0,0
+33,Hammersmith and Fulham,0,0
+34,Hampshire,341.37,54
+35,Haringey,0,0
+36,Harrow,0,0
+37,Hartlepool,0,0
+38,Havering,0,0
+39,Herefordshire,31.08,31
+40,Hertfordshire,12.17,11
+41,Hillingdon,0,0
+42,Hounslow,0,0
+43,Isle of Wight,10.22,3
+44,Islington,0,0
+45,Kensington and Chelsea,0,0
+46,Kent,1030.96,101
+47,Kingston upon Hull,0,0
+48,Kingston upon Thames,0,0
+49,Lambeth,0,0
+50,Lancashire,0.56,1
+51,Leicester,0,0
+52,Leicestershire,5.35,8
+53,Lewisham,0,0
+54,Lincolnshire,16.13,9
+55,London,4.32,6
+56,Luton,0,0
+57,Manchester,0,0
+58,Medway,0,0
+59,Merseyside,0,0
+60,Merton,0,0
+61,Middlesbrough,0,0
+62,Milton Keynes,0,0
+63,Newham,0,0
+64,Norfolk,57.31,24
+65,North East Lincolnshire,0,0
+66,North Lincolnshire,0,0
+67,North Somerset,6.33,6
+68,North Yorkshire,17.93,10
+69,Northamptonshire,14.37,12
+70,Northumberland,0.1,1
+71,Nottingham,0,0
+72,Nottinghamshire,9.05,7
+73,Oxfordshire,41.8,19
+74,Peterborough,0,0
+75,Plymouth,0,0
+76,Poole,0,0
+77,Portsmouth,0,0
+78,Redbridge,0,0
+79,Redcar and Cleveland,0,0
+80,Richmond upon Thames,0,0
+81,Rutland,5.12,3
+82,Shropshire,18.49,16
+83,Somerset,20.15,27
+84,South Gloucestershire,0.2,1
+85,South Yorkshire,1.57,2
+86,Southampton,0,0
+87,Southend-on-Sea,0,0
+88,Southwark,0,0
+89,Staffordshire,20.14,5
+90,Stockton-on-Tees,0,0
+91,Stoke-on-Trent,0,0
+92,Suffolk,50.78,22
+93,Surrey,126.87,20
+94,Sutton,0,0
+95,Swindon,0,0
+96,Telford and Wrekin,0,0
+97,Thurrock,0,0
+98,Torbay,0,0
+99,Tower Hamlets,0,0
+100,Tyne and Wear,0,0
+101,Waltham Forest,0,0
+102,Wandsworth,0,0
+103,Warrington,0,0
+104,Warwickshire,6.95,5
+105,West Midlands,0.06,1
+106,West Sussex,505.35,66
+107,West Yorkshire,4.14,2
+108,Westminster,0,0
+109,Wiltshire,31.77,20
+110,Worcestershire,23.37,21
+111,York,0,0
+112,Antrim,0,0
+113,Ards,0,0
+114,Armagh,0,0
+115,Ballymena,0,0
+116,Ballymoney,0,0
+117,Banbridge,0,0
+118,Belfast,0,0
+119,Carrickfergus,0,0
+120,Castlereagh,0,0
+121,Coleraine,0,0
+122,Cookstown,0,0
+123,Craigavon,0,0
+124,Derry,0,0
+125,Down,0,0
+126,Dungannon,0,0
+127,Fermanagh,0,0
+128,Larne,0,0
+129,Limavady,0,0
+130,Lisburn,0,0
+131,Magherafelt,0,0
+132,Moyle,0,0
+133,Newry and Mourne,0,0
+134,Newtownabbey,0,0
+135,North Down,0,0
+136,Omagh,0,0
+137,Strabane,0,0
+138,Aberdeen,0,0
+139,Aberdeenshire,0.005,1
+140,Angus,0,0
+141,Argyll and Bute,0,0
+142,Clackmannanshire,0,0
+143,Dumfries and Galloway,0,0
+144,Dundee,0,0
+145,East Ayrshire,0,0
+146,East Dunbartonshire,0,0
+147,East Lothian,0,0
+148,East Renfrewshire,0,0
+149,Edinburgh,0,0
+150,Eilean Siar,0,0
+151,Falkirk,0,0
+152,Fife,0.37,1
+153,Glasgow,0,0
+154,Highland,0,0
+155,Inverclyde,0,0
+156,Midlothian,0,0
+157,Moray,0,0
+158,North Ayshire,0,0
+159,North Lanarkshire,0,0
+160,Orkney Islands,0,0
+161,Perthshire and Kinross,0,0
+162,Renfrewshire,0,0
+163,Scottish Borders,1,1
+164,Shetland Islands,0,0
+165,South Ayrshire,0,0
+166,South Lanarkshire,0,0
+167,Stirling,0,0
+168,West Dunbartonshire,0,0
+169,West Lothian,0,0
+170,Anglesey,1.82,2
+171,Blaenau Gwent,0,0
+172,Bridgend,0,0
+173,Caerphilly,0,0
+174,Cardiff,0.3,1
+175,Carmarthenshire,4.62,4
+176,Ceredigion,5.46,1
+177,Conwy,0.4,1
+178,Denbighshire,2.01,2
+179,Flintshire,0.5,1
+180,Gwynedd,3.53,3
+181,Merthyr Tydfil,0,0
+182,Monmouthshire,19.6,7
+183,Neath Port Talbot,0,0
+184,Newport,0,0
+185,Pembrokeshire,1.96,2
+186,Powys,6.51,4
+187,"Rhondda, Cynon, Taff",0,0
+188,Swansea,0,0
+189,Torfaen,0,0
+190,Vale of Glamorgan,5.88,6
+191,Wrexham,0,0
+,,,852
