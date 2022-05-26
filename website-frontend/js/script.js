@@ -9,6 +9,10 @@ $header_top.find("a").on("click", function () {
 
 // fullpage customization
 $("#fullpage").fullpage({
+  // AG: we are telling fullpage that there are a few element classes where
+  // we have overflowing text and we'd like to use normal scrolling
+  // Ref: https://alvarotrigo.com/fullPage/help/make-an-element-scrollable-inside-a-fullpage-js-section-or-slide/
+  normalScrollElements: '.paragraph-ref, .paragraph-main-scroll',
   sectionsColor: [
     "#2DC4B2",
     "#3BB3C3",

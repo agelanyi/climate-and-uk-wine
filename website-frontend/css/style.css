@@ -319,7 +319,9 @@ h3 {
   background-size: cover;
 }
 
-.paragraph-main {
+/* AG: We have a copy of paragraph-main, we are just using it for overflow text 
+   since fullpage is told to enable scrolling on elements with this class.*/
+.paragraph-main, .paragraph-main-scroll {
   background-color: rgba(255, 255, 255, 0.166);
   text-align: right;
   padding: 3%;
@@ -345,17 +347,7 @@ h3 {
   max-height: 60vh;
 }
 
-.paragraph-references {
-  background-color: rgba(255, 255, 255, 0.166);
-  text-align: left;
-  padding: 20%;
-  line-height: 2.0;
-  font-size: medium;
-  font-weight: 400;
-  font-size: 1.5em;
-}
-
-.paragraph-describtion {
+.paragraph-description {
   background-color: rgba(255, 255, 255, 0.166);
   text-align: left;
   padding: 1%;
