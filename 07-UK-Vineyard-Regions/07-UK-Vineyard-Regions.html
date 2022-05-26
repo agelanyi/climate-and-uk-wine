@@ -23,15 +23,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     
     <style>
   p{
-    font-size:20px;
+    font-size:18px;
   }
 h1 {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 30px;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 20px;
     margin-bottom: 10px;
   }
@@ -67,7 +67,7 @@ h1 {
 
   .label {
     width: 12%;
-    font-size: 20px;
+    font-size: 18px;
     display: inline-block;
     text-align: center;
   }
@@ -105,7 +105,7 @@ body {
 
 #console2 {
     position: absolute;
-    top: 16%;
+    top: 20%;
     margin: 10px;
     height: 30%; 
     width: 25%;
@@ -203,7 +203,7 @@ map.on('load', function() {
         if (la.length==1) {   // This if statement is run when the mouse is over a local authority
 
         map.setFilter('Countyline', ['==','NAME_2',la[0].properties.NAME_2]);
-        console.log(la[0].properties.NAME_2);    document.getElementById('console2').innerHTML = "<p><b>County:</b> " + la[0].properties.NAME_2 + "<br><b>Count of Vineyards: </b>" + la[0].properties["Number of"] +"<br><b> Hectares Planted: </b>" + la[0].properties["Sum of ectares"].toFixed(2) + " </p>"  ;
+        console.log(la[0].properties.NAME_2);    document.getElementById('console2').innerHTML = "<p><b>County:</b> " + la[0].properties.NAME_2 + "<br><b>Count of Vineyards: </b>" + la[0].properties["Number of"] +"<br><b> Hectares Planted: </b>" + la[0].properties["Sum of Ha"].toFixed(2) + " </p>"  ;
         console.log(la[0].id);
         console.log(la);
 
