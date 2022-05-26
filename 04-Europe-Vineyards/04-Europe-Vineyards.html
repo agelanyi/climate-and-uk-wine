@@ -6,13 +6,13 @@
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">    
     
 <style>
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: 'Raleway', sans-serif;
         font-size: 12px;
     }
 
@@ -44,17 +44,6 @@
     
 <body>
 <div id="map"></div>
-<div id="console">
-    <h1>Vineyards in Europe</h1>
-    </div>
-    
-
-
-    <p>
-        Data derived from:
-        <a href="https://land.copernicus.eu/pan-european/corine-land-cover/clc-2000">CORINE Land Cover 2006 (EEA 2014)</a>
-    </p>
-    
     
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibXdhbmdob2ZmaW4iLCJhIjoiY2wzNjJsZHgzMGM3bTNjbnd0czl2ZGkxZyJ9.nKKf5T3bxumyclMaApCb4A';  //Put your mapbox access token here
@@ -66,8 +55,11 @@
             center: [10, 46], // starting position [lng, lat]
             zoom: 4 // starting zoom
         });
+    
+map.addControl(new mapboxgl.NavigationControl());
 
 </script>
 
 </body>
 </html>
+
