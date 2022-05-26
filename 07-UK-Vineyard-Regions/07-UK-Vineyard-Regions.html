@@ -7,7 +7,7 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
     <!-- loading font -->
-<link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 <script src="mapbox-gl-sync-move.js"></script>
 <script
 src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
@@ -16,14 +16,14 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     <style>
         body { margin:0; 
           padding:0; 
-          font-family: 'Titillium Web', sans-serif;
+          font-family: 'Raleway', sans-serif;
         }
         #map { position:absolute; top:0; bottom:0; width:100%; }
     </style>
     
     <style>
   p{
-    font-size:14px;
+    font-size:20px;
   }
 h1 {
     font-size: 20px;
@@ -31,7 +31,7 @@ h1 {
   }
 
   h2 {
-    font-size: 14px;
+    font-size: 20px;
     line-height: 20px;
     margin-bottom: 10px;
   }
@@ -67,7 +67,7 @@ h1 {
 
   .label {
     width: 12%;
-    font-size: 0.8em;
+    font-size: 20px;
     display: inline-block;
     text-align: center;
   }
@@ -86,138 +86,7 @@ body {
         width: 100%
      
       }
-      #instructions {
-        position: absolute;
-        margin: 20px;
-        width: 15%;
-        height: 45%; 
-        top: 0;
-        bottom: 10%;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.9);
-        overflow-y: scroll;
-        font-family: sans-serif;
-        font-size: 0.8em;
-        line-height: 2em;
         
-      }
-      .duration {
-        font-size: 2em;
-      }
-    #fly {
-        display: block;
-        position: absolute;
-        margin: 20px;
-        width: 15%;
-        top: 10;
-        bottom: 49%;
-        padding: 20px;
-        background-color: "#f68080";
-        padding: 10px;
-        border: none;
-        border-radius: 3px;
-        font-size: 12px;
-        text-align: center;
-        color: #fff;
-        background: #f68080;
-}
-        #laname {
-    
-        position: absolute;
-        margin: 20px;
-        width: 15%;
-        height: 12%; 
-        top: 50%;
-        bottom: 10%;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.9);
-        overflow-y: scroll;
-        font-family: sans-serif;
-        font-size: 0.8em;
-        line-height: 2em;
-        }
-        
-        .legend {
-        position: absolute;
-        margin: 20px;
-        width: 14%;
-        height: 25%;
-        top: 100;
-        bottom: 0%;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.9);
-        overflow-y: scroll;
-        font-family: sans-serif;
-        font-size: 0.8em;
-        line-height: 2em;
-
-}
- #divider {
-    background-color: gray;
-    position: absolute;
-    left: 60%;
-    top: 0;
-    bottom: 0;
-    width: 0.2%;
-    z-index: 2;
-}
-        
-.legend h4 {
-margin: 0 0 10px;
-}
- 
-.legend div span {
-border-radius: 50%;
-display: inline-block;
-height: 10px;
-margin-right: 5px;
-width: 10px;
-}
-
-.map-overlay {
-            font-family: "Raleway";
-		    font: 12px/20px, Raleway;
-		    position: absolute;
-		    width: 17%;
-		    top: 0;
-		    left: 0;
-		    padding: 10px;
-		}
-
-		.map-overlay .map-overlay-inner {
-		    background-color: #fff;
-		    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
-		    border-radius: 3px;
-		    padding: 10px;
-		    margin-bottom: 10px;
-		}
-
-		.map-overlay table {
-		    border: none;
-		    width: 100%;
-		}
-
-		.map-overlay h2 {
-		    line-height: 24px;
-		    display: block;
-		    margin: 0 0 10px;
-}
-        
- #instructions {
-        position: absolute;
-        margin: 20px;
-        width: 15%;
-        height: 45%; 
-        top: 0;
-        bottom: 10%;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.9);
-        overflow-y: scroll;
-        font-family: sans-serif;
-        font-size: 0.8em;
-        line-height: 2em;
-        
-      }
 #console {
     position: absolute;
     top: 0%;
@@ -236,58 +105,16 @@ width: 10px;
 
 #console2 {
     position: absolute;
-    top: 20%;
+    top: 16%;
     margin: 10px;
-    height: 20%; 
+    height: 30%; 
     width: 25%;
     opacity: 0.8;
     background-color: white;
     padding: 5px 5px;
    }
-
-#graph1 {
-    position: absolute;
-    top: 10%;
-    margin: 10px;
-    height: 25%; 
-    width: 35%;
-    left: 60%;
-    background-color: grey;
-    padding: 10px 20px  }
-.session {
-    margin-bottom: 20px;
-      
+  
   }
-
-#graph2 {
-    position: absolute;
-    top: 40%;
-    margin: 10px;
-    height: 25%; 
-    width: 35%;
-    left: 60%;
-    background-color: blue;
-    padding: 10px 20px  }
-.session {
-    margin-bottom: 20px;
-      
-  }
-        
-#graph3 {
-    position: absolute;
-    top: 70%;
-    margin: 10px;
-    height: 25%; 
-    width: 35%;
-    left: 60%;
-    background-color: pink;
-    padding: 10px 20px  }
-.session {
-    margin-bottom: 20px;
-      
-  }
-
-
 
 </style>
     
@@ -309,7 +136,7 @@ width: 10px;
         <div class='label'>60</div>
         <div class='label'>90</div>
         <div class='label'>130</div>
-        <div class='label'>175(ha)</div>
+        <div class='label'>175</div>
         <div class='label'> </div>
         </div></div> </div>
     <div id="console2"><b><p>Use your mouse to hover over the map.</p></b></div>
@@ -322,8 +149,8 @@ width: 10px;
 	var map = new mapboxgl.Map({
 		container: 'map', // container id
         style: 'mapbox://styles/rubyjohnson/cl36306dq00cj14p6eam30i2z',
-        center: [-3.5, 53.5],
-        zoom: 5.2
+        center: [-0.022523, 51.234201],
+        zoom: 7
 });
     
 map.addControl(new mapboxgl.NavigationControl());
@@ -342,7 +169,7 @@ map.on('load', function() {
                 'visibility': 'visible'
             },
             paint: {
-                'fill-color': 'grey',
+                'fill-color': 'white',
                 'fill-opacity': 0
                 }
           });
@@ -358,7 +185,7 @@ map.on('load', function() {
                 'visibility': 'visible'
             },
             paint: {
-                'line-color': 'grey',
+                'line-color': 'white',
             
                 'line-width': 2
                 },
@@ -376,7 +203,7 @@ map.on('load', function() {
         if (la.length==1) {   // This if statement is run when the mouse is over a local authority
 
         map.setFilter('Countyline', ['==','NAME_2',la[0].properties.NAME_2]);
-        console.log(la[0].properties.NAME_2);    document.getElementById('console2').innerHTML = "<p><b>County:</b> " + la[0].properties.NAME_2 + "<br><b>Count of Vineyards: </b>" + la[0].properties["Number of"] +"<br><b> Hectares Planted: </b>" + la[0].properties["Sum of Ha"].toFixed(2) + " ha</p>"  ;
+        console.log(la[0].properties.NAME_2);    document.getElementById('console2').innerHTML = "<p><b>County:</b> " + la[0].properties.NAME_2 + "<br><b>Count of Vineyards: </b>" + la[0].properties["Number of"] +"<br><b> Hectares Planted: </b>" + la[0].properties["Sum of ectares"].toFixed(2) + " </p>"  ;
         console.log(la[0].id);
         console.log(la);
 
