@@ -331,7 +331,7 @@ h3 {
   font-size: 1.5em;
   overflow-y: auto;
   /* AG: setting the max height to force a scrollbar */
-  max-height: 60vh;
+  max-height: 58vh;
 }
 
 .paragraph-ref {
@@ -344,7 +344,7 @@ h3 {
   font-size: 1.5em;
   overflow-y: auto;
   /* AG: setting the max height to force a scrollbar; was 63, set to 55 */
-  max-height: 60vh;
+  max-height: 58vh;
 }
 
 .paragraph-description {
