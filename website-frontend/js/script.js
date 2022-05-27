@@ -32,7 +32,7 @@ $("#fullpage").fullpage({
     "#DCDBE9",
     "#A2719B",
     "#AA5E79",
-  ]
+  
   ],
   sectionSelector: ".vertical-scrolling",
   slideSelector: ".horizontal-scrolling",
