@@ -8,6 +8,9 @@ This map shows the calculated yearly mean temperatures of the growing seasons (A
 
 The map can be opened [here](https://agelanyi.github.io/climate-and-uk-wine/02-Global-Viticultural-Climate-Zones/02-Global-Viticultural-Climate-Zones.html).
 
+A GIF animation that shows teh changes even here, on a static website:
+![Changes between 1900 and 2017](images/1900-2017.gif)
+
 # References
 
 [1] David Morrison, ‘The Wine Gourd: March 2018’. https://winegourd.blogspot.com/2018/03/ (accessed May 11, 2022).
