@@ -8,7 +8,7 @@ This map shows the calculated yearly mean temperatures of the growing seasons (A
 
 The map can be opened [here](https://agelanyi.github.io/climate-and-uk-wine/02-Global-Viticultural-Climate-Zones/02-Global-Viticultural-Climate-Zones.html).
 
-A GIF animation that shows teh changes even here, on a static website:
+Using the Notebook, a GIF animation was built that can be displayed here, on a static website as well:
 ![Changes between 1900 and 2017](images/1900-2017.gif)
 
 # References
