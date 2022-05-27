@@ -319,6 +319,15 @@ h3 {
   background-size: cover;
 }
 
+/* Background for the conclusion page*/
+.background-conclusion {
+  background-image: url("../media/karsten-wurth-0aEgNBtqL-I-unsplash.jpg") !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
 /* AG: We have a copy of paragraph-main, we are just using it for overflow text 
    since fullpage is told to enable scrolling on elements with this class.*/
 .paragraph-main, .paragraph-main-scroll {
