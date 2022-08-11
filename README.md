@@ -19,3 +19,17 @@ status quo for Viticulture. Throughout this website, the
 untold story of the UK's viticulture is explored. From weather
 patterns, to what lies beneath the grapes, you can discover how a
 global phenomenon is creating change locally.
+
+## Team
+Andras Gelanyi ([GitHub](https://github.com/agelanyi))
+
+Ruby Johnson ([GitHub](https://github.com/rubyimogenjohnson))
+
+Kameliya Staneva ([GitHub](https://github.com/kameliyastaneva))
+
+Haofu Wang ([GitHub](https://github.com/HaofuW))
+
+Shuyi Zheng ([GitHub](https://github.com/zheng821))
+
+## Global to Local
+Our fellow students at [CASA](https://www.ucl.ac.uk/bartlett/casa) were experimenting with a variety of tools and techniques throughout the term. Some other excellent spatial data visualisation works following the theme of 'Global to Local' can be checked out [here](https://citygeographics.org/2022/06/10/global-visualisation-websites-from-casa-msc-students/).
